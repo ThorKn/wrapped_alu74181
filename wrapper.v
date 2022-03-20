@@ -1,6 +1,6 @@
 `default_nettype none
 `ifdef FORMAL
-    `define MPRJ_IO_PADS 38    
+    `define MPRJ_IO_PADS 38
 `endif
 
 //`define USE_WB  1
@@ -11,7 +11,7 @@
 //`define USE_IRQ 1
 
 // update this to the name of your module
-module wrapped_project(
+module wrapped_alu74181(
 `ifdef USE_POWER_PINS
     inout vccd1,	// User area 1 1.8V supply
     inout vssd1,	// User area 1 digital ground
@@ -68,7 +68,7 @@ module wrapped_project(
     // extra user clock
     input wire user_clock2,
 `endif
-    
+
     // active input, only connect tristated outputs if this is high
     input wire active
 );
@@ -118,7 +118,7 @@ module wrapped_project(
     `include "properties.v"
     `else
     // tristate buffers
-    
+
     `ifdef USE_WB
     assign wbs_ack_o    = active ? buf_wbs_ack_o    : 1'bz;
     assign wbs_dat_o    = active ? buf_wbs_dat_o    : 32'bz;
@@ -148,9 +148,26 @@ module wrapped_project(
     // permanently set oeb so that outputs are always enabled: 0 is output, 1 is high-impedance
     assign buf_io_oeb = {`MPRJ_IO_PADS{1'b0}};
 
-    // Instantiate your module here, 
-    // connecting what you need of the above signals. 
+    // Instantiate your module here,
+    // connecting what you need of the above signals.
     // Use the buffered outputs for your module's outputs.
+    alu74181 alu74181 (
+    `ifdef USE_POWER_PINS
+    	.vccd1(vccd1),	// User area 1 1.8V power
+    	.vssd1(vssd1),	// User area 1 digital ground
+    `endif
+        .A   (io_in[11:8]),
+        .B   (io_in[15:12]),
+        .S   (io_in[19:16]),
+        .CNb (io_in[20]),
+        .M   (io_in[21]),
+        .F   (buf_io_out[25:22]),
+        .AEB (buf_io_out[26]),
+        .X   (buf_io_out[27]),
+        .Y   (buf_io_out[28]),
+        .CN4b(buf_io_out[29])
 
-endmodule 
+    );
+
+endmodule
 `default_nettype wire

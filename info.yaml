@@ -1,26 +1,26 @@
---- 
+---
 # information
-project: 
-  title: "title"
-  description: "description"
-  picture: docs/empty.png
-  author: "Author"
-  license: LICENSE
+project:
+  title: "ALU74181"
+  description: "Rebuild of the 4-bit Arithmetic Logic Unit 74181"
+  picture: docs/alu74181_gds.png
+  author: "Thorsten Knoll"
+  license: Apache 2.0
 
 # optional interfaces you want to use: gpio, la1, la2, la3, irq, clk2, wishbone & openram
 interfaces: ['la1', 'gpio']
 
 # test within caravel
 caravel_test:
-  recipe: "coco_test"
+  recipe: "all"
   directory: "caravel_test"
-  id: 1
-  module_name: "wrapped_project"
+  id: 7
+  module_name: "wrapped_alu74181"
 
 # module test
 module_test:
-  recipe: "all" 
-  directory: "project directory"
+  recipe: "all"
+  directory: "alu74181"
   makefile: "Makefile"
 
 # run the wrapper formal proof
@@ -35,11 +35,11 @@ openlane:
 # source required for various configs and module instantiation
 source:
     - wrapper.v
-    - other source files here
+    - alu74181/src/alu74181.v
 
 # gds - check nothing on metal 5, DRC & LVS
 final:
   directory: "final"
-  gds_filename: "gds/project.gds"
-  lvs_filename: "verilog/gl/project.v"
-  lef_filename: "lef/project.lef"
+  gds_filename: "gds/wrapped_alu74181.gds"
+  lvs_filename: "verilog/gl/wrapped_alu74181.v"
+  lef_filename: "lef/wrapped_alu74181.lef"

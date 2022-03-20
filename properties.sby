@@ -5,10 +5,10 @@ mode prove
 smtbmc
 
 [script]
-read -formal wrapper.v rest of your source files.v
-prep -top wrapped_project
+read -formal wrapper.v alu74181.v
+prep -top wrapped_alu74181
 
 [files]
 wrapper.v
 properties.v
-rest of your source files.v
+alu74181/src/alu74181.v
