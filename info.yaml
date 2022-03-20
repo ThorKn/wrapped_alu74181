@@ -13,7 +13,7 @@ interfaces: ['la1', 'gpio']
 # test within caravel
 caravel_test:
   recipe: "all"
-  directory: "caravel_test"
+  directory: "caravel_alu74181"
   id: 7
   module_name: "wrapped_alu74181"
 
