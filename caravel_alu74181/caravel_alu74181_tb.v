@@ -45,7 +45,7 @@ module alu74181_tb;
 	end
 
 	initial begin
-		$dumpfile("alu74181.vcd");
+		$dumpfile("caravel_alu74181.vcd");
 		$dumpvars(0, alu74181_tb);
 
 		// Repeat cycles of 1000 clock edges as needed to complete testbench
