@@ -166,7 +166,7 @@ module alu74181_tb;
 	);
 
 	spiflash #(
-		.FILENAME("alu74181.hex")
+		.FILENAME("caravel_alu74181.hex")
 	) spiflash (
 		.csb(flash_csb),
 		.clk(flash_clk),
